@@ -24,7 +24,7 @@ db = scoped_session(sessionmaker(bind=engine))
 def index():
     return render_template("index.html")
 
-@app.route("/login", methods=["POST"])
+@app.route("/signup", methods=["GET", "POST"])
 def signup():
     # Get login form information.
     username = request.form.get("username")
@@ -36,8 +36,13 @@ def signup():
     # if db.execute("SELECT * FROM users WHERE username = :username"):
     #     return render_template ("error.html")
 
-    
+
     db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
                {"username": username, "password": password})
     db.commit()
     return render_template("success.html")
+
+
+@app.route("/login", methods=["GET"])
+def login():
+    return render_template("login.html")

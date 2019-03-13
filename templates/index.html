@@ -6,7 +6,6 @@
 
 {% block body %}
     <h1>Book Review Central</h1>
-
     <h1>Sign Up</h1>
 
     <form action="{{ url_for('signup') }}" method="post">
@@ -22,6 +21,6 @@
             <button class="btn btn-primary">Login</button>
         </div>
     </form>
-<!-- 
-    <h2>Need an account? <a href="{{ url_for('signup') }}">Sign up here</a></h2> -->
+
+    <h2>Already have an account? <a href="{{ url_for('login') }}">Log in here</a></h2>
 {% endblock %}
