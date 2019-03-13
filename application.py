@@ -36,6 +36,7 @@ def signup():
     # if db.execute("SELECT * FROM users WHERE username = :username"):
     #     return render_template ("error.html")
 
+    
     db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
                {"username": username, "password": password})
     db.commit()
