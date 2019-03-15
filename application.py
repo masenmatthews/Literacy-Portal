@@ -24,17 +24,15 @@ db = scoped_session(sessionmaker(bind=engine))
 def index():
     return render_template("index.html")
 
-@app.route("/signup", methods=["GET", "POST"])
+@app.route("/signup", methods=["POST"])
 def signup():
-    # Get login form information.
+    # Get signup information.
     username = request.form.get("username")
     password = request.form.get("password") 
-    # except ValueError:
-    #     return render_template("error.html", message="Invalid username or password")
 
     # Makes sure that user doesn't already exist
-    # if db.execute("SELECT * FROM users WHERE username = :username"):
-    #     return render_template ("error.html")
+    if db.execute("SELECT * FROM users WHERE username=username"):
+        return render_template ("error.html")
 
 
     db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
