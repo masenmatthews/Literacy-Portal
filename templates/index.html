@@ -5,5 +5,22 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Hello</h1>
+    <h1>Book Review Central</h1>
+    <h1>Sign Up</h1>
+
+    <form action="{{ url_for('signup') }}" method="post">
+        <div class="form-group">
+            <input class="form-control" name="username" placeholder="Username">
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" name="password" placeholder="Password">
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary">Login</button>
+        </div>
+    </form>
+
+    <h2>Already have an account? <a href="{{ url_for('login') }}">Log in here</a></h2>
 {% endblock %}
