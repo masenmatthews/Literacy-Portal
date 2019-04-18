@@ -26,7 +26,7 @@ def index():
     if not session.get('logged_in'):
         return render_template("login.html")
     else:
-        return "Hello Boss!"
+        return render_template("index.html")
 
 @app.route("/signup", methods=["POST"])
 def signup():
@@ -38,9 +38,12 @@ def signup():
     # if db.execute("SELECT * FROM users WHERE username=username"):
     #     return render_template ("error.html")
 
-    db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
+    if db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).rowcount == 0:
+        return render_template("error.html")
+    else:
+        db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
                {"username": username, "password": password})
-    db.commit()
+        db.commit()
     return render_template("success.html")
 
 @app.route("/login", methods=["POST"])
@@ -61,8 +64,8 @@ def login():
 @app.route("/logout")
 def logout():
     session['logged_in'] = False
-    return index()
-
+    return index();
+    
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
     app.run(debug=True, host='0.0.0.0', port=4000)
