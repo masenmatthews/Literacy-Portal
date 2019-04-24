@@ -64,8 +64,14 @@ def login():
 @app.route("/logout")
 def logout():
     session['logged_in'] = False
-    return index();
-    
+    return index()
+
+@app.route("/book_search", methods=["POST"])
+def book_search():
+    title = request.form.get("title")
+    books = db.execute("SELECT * FROM books WHERE title LIKE :title", {"title": title}).fetchall()
+    return render_template("index.html", books=books)
+
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
-    app.run(debug=True, host='0.0.0.0', port=4000)
+    app.run(debug=TrÎue, host='0.0.0.0', port=4000)
