@@ -68,8 +68,8 @@ def logout():
 
 @app.route("/book_search", methods=["POST"])
 def book_search():
-    title = request.form.get("title")
-    books = db.execute("SELECT * FROM books WHERE title LIKE :title", {"title": title}).fetchall()
+    book = request.form.get("book")
+    books = db.execute("SELECT * FROM books WHERE :isbn LIKE isbn OR :title LIKE title OR :author LIKE author OR :year LIKE year", {"isbn": book, "title": book, "author": book, "year": book}).fetchall()
     return render_template("index.html", books=books)
 
 if __name__ == "__main__":

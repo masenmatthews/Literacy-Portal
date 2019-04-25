@@ -2,33 +2,35 @@
 {% extends "layout.html" %}
 
 {% block title %}  
-    BookPlace
+    Bookstone
 {% endblock %}
 
 {% block body %}
-    <h1>BookPlace</h1>
+    <h1>Bookstone</h1>
     <a href="/logout">Logout</a>
 
     <div class="form-group">
         <div class="md-form mt-0">
             <h2>Search for a book</h2>
             <form action="/book_search" method="POST">
-                <input class="form-control" type="title" 
-                name="title"
+                <input class="form-control" type="book"
+                name="book"
                 placeholder="Search" aria-label="Search">
                 <button class="btn aqua-gradient btn-rounded btn-sm my-0" type="submit">Search</button>
             </form>
         </div>
     </div>
 
-    <ul>
-        {% for book in books %}
-            <li>ISBN: {{ book.isbn }}</li>
-            <li>TITLE: {{ book.title }}</li>
-            <li>AUTHOR: {{ book.author }}</li>
-            <li>YEAR: {{ book.year }}</li>
-        {% else %}
-            <li>No books found</li>
-        {% endfor %}
-    </ul>
+    <div class="search-result">
+        <ul>
+            {% for book in books %}
+                <li>ISBN: {{ book.isbn }}</li>
+                <li>TITLE: {{ book.title }}</li>
+                <li>AUTHOR: {{ book.author }}</li>
+                <li>YEAR: {{ book.year }}</li>
+            {% else %}
+                <li>No books found</li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

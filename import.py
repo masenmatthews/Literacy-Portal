@@ -1,17 +1,25 @@
 import csv
 import os
 
-from sqlalchemy import create_engine
+from sqlalchemy import *
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
+metadata = MetaData()
+books = Table('books', metadata,
+              Column('id', Integer, primary_key=True),
+              Column('isbn', String),
+              Column('title', String),
+              Column('author', String),
+              Column('year', String),
+              )
+
+books.drop(engine)
+books.create(engine)  # creates the users table
+
 def main():
-    # stmt = "SHOW TABLES LIKE 'books'"
-    # cursor.execute(stmt)
-    # result = cursor.fetchone()
-    # if result:
     f = open("books.csv")
     reader = csv.reader(f)
     next(reader)
@@ -21,9 +29,6 @@ def main():
         print(
             f"Added {title} to database")
     db.commit()
-    
-    # else:
-        # there are no tables named "tableName"
 
 if __name__ == "__main__":
     main()
