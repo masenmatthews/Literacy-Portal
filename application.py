@@ -72,6 +72,15 @@ def book_search():
     books = db.execute("SELECT * FROM books WHERE isbn LIKE :string OR title LIKE :string OR author LIKE :string OR year LIKE :string", {"string": f"%{book}%"}).fetchall()
     return render_template("index.html", books=books)
 
+@app.route("/books/<int:book_id>")
+def book(book_id):
+    # Make sure book exists.
+    book = db.execute("SELECT * FROM books WHERE id = :id", {"id": book_id}).fetchone()
+    if book is None:
+        return render_template("error.html", message="No such book.")
+        
+    return render_template("book.html", book=book)
+
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
     app.run(debug=TrÎue, host='0.0.0.0', port=4000)

@@ -24,10 +24,11 @@
     <div class="search-result">
         <ul>
             {% for book in books %}
-                <li>ISBN: {{ book.isbn }}</li>
-                <li>TITLE: {{ book.title }}</li>
-                <li>AUTHOR: {{ book.author }}</li>
-                <li>YEAR: {{ book.year }}</li>
+                <li> 
+                    <a href="{{ url_for('book', book_id=book.id) }}">
+                        {{ book.title }} by {{ book.author }}
+                    </a>
+                </li>
             {% else %}
                 <li>No books found</li>
             {% endfor %}
