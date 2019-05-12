@@ -13,4 +13,27 @@
         <li>Year: {{ book.year }}</li>
         <li>ISBN: {{ book.isbn }}</li>
     </ol>
+
+    <div class="form-group">
+    <h1>Submit a review for {{ book.title }}</h1>
+    <form action="/review" method="POST">
+        <input class="form-control" type="number" min="1" max= "5" name="rating" placeholder="rating">
+        <input class="form-control" type="text" name="review-body" placeholder="review-body">
+        <button type="submit" class="btn btn-primary mb-2">Submit review</button>
+    </form>
+
+    <div class="reviews">
+        <ul>
+            {% for review in reviews %}
+                <li> 
+                    {{ review.title }}
+                    {{ review.rating }}
+                    {{ review.body }}
+                </li>
+            {% else %}
+                <li>No reviews yet!</li>
+            {% endfor %}
+        </ul>
+    </div>
+
 {% endblock %}

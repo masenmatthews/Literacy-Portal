@@ -1,10 +1,10 @@
 import os
-
 from flask import Flask, flash, redirect, session, request, render_template, abort
 from flask_session import Session
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-from tabledef import *
+from models import *
 
 app = Flask(__name__)
 
@@ -33,18 +33,18 @@ def signup():
     # Get signup information.
     username = request.form.get("username")
     password = request.form.get("password") 
+    db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
+            {"username": username, "password": password})
+    db.commit()
+    return render_template("success.html")
 
     # Makes sure that user doesn't already exist
     # if db.execute("SELECT * FROM users WHERE username=username"):
     #     return render_template ("error.html")
 
-    if db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).rowcount == 0:
-        return render_template("error.html")
-    else:
-        db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
-               {"username": username, "password": password})
-        db.commit()
-    return render_template("success.html")
+    # if db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).rowcount == 0:
+    #     return render_template("error.html")
+    # else:
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -72,14 +72,24 @@ def book_search():
     books = db.execute("SELECT * FROM books WHERE isbn LIKE :string OR title LIKE :string OR author LIKE :string OR year LIKE :string", {"string": f"%{book}%"}).fetchall()
     return render_template("index.html", books=books)
 
-@app.route("/books/<int:book_id>")
+@app.route("/books/<int:book_id>", methods=("GET", "POST"))
 def book(book_id):
     # Make sure book exists.
     book = db.execute("SELECT * FROM books WHERE id = :id", {"id": book_id}).fetchone()
     if book is None:
         return render_template("error.html", message="No such book.")
         
-    return render_template("book.html", book=book)
+    reviews = Review.query.filter_by(book_id=book_id).all()
+    return render_template("book.html", book=book, reviews=reviews)
+
+    # add review
+    rating = request.form.get(rating)
+    title = request.form.get("title")
+    review_body = request.form.get("review_body")
+    book.add_review(rating, title, review_body)
+    return render_template("success.html")
+
+
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)

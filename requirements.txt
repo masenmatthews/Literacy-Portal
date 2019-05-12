@@ -1,4 +1,5 @@
 Flask
 Flask-Session
+flask_sqlalchemy
 psycopg2
 SQLAlchemy
