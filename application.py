@@ -4,7 +4,7 @@ from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-from models import *
+from create import *
 
 app = Flask(__name__)
 
@@ -74,22 +74,23 @@ def book_search():
 
 @app.route("/books/<int:book_id>", methods=("GET", "POST"))
 def book(book_id):
+    
     # Make sure book exists.
     book = db.execute("SELECT * FROM books WHERE id = :id", {"id": book_id}).fetchone()
     if book is None:
         return render_template("error.html", message="No such book.")
-        
-    reviews = Review.query.filter_by(book_id=book_id).all()
+  
+    # line 83 is what's throwing the keyError    
+    reviews = db.execute("SELECT * FROM reviews WHERE id = :id", {"id": book_id}).fetchall()
     return render_template("book.html", book=book, reviews=reviews)
 
-    # add review
-    rating = request.form.get(rating)
+def review(book_id):
+    # Add reviewv
+    rating = request.form.get("rating")
     title = request.form.get("title")
-    review_body = request.form.get("review_body")
-    book.add_review(rating, title, review_body)
-    return render_template("success.html")
-
-
+    body = request.form.get("body")
+    book.add_review(rating, title, body)
+    return render_template("book.html", book=book, reviews=reviews)
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)

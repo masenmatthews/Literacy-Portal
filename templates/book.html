@@ -18,7 +18,8 @@
     <h1>Submit a review for {{ book.title }}</h1>
     <form action="/review" method="POST">
         <input class="form-control" type="number" min="1" max= "5" name="rating" placeholder="rating">
-        <input class="form-control" type="text" name="review-body" placeholder="review-body">
+        <input class="form-control" type="text" name="title" placeholder="title">
+        <input class="form-control" type="text" name="body" placeholder="body">
         <button type="submit" class="btn btn-primary mb-2">Submit review</button>
     </form>
 

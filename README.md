@@ -13,8 +13,6 @@ Web Programming with Python and JavaScript
 4. Run sudo pip3 install -U -r requirements.txt 
 4. Run flask run
 
-
-
 https://pythonspot.com/login-authentication-with-flask/
 ## 
 
