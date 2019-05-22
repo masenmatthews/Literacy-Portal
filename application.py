@@ -74,23 +74,25 @@ def book_search():
 
 @app.route("/books/<int:book_id>", methods=("GET", "POST"))
 def book(book_id):
-    
     # Make sure book exists.
     book = db.execute("SELECT * FROM books WHERE id = :id", {"id": book_id}).fetchone()
     if book is None:
         return render_template("error.html", message="No such book.")
   
-    # line 83 is what's throwing the keyError    
-    reviews = db.execute("SELECT * FROM reviews WHERE id = :id", {"id": book_id}).fetchall()
+    reviews = db.execute("SELECT * FROM reviews WHERE book_id = :book_id", {"book_id": book_id}).fetchall()
     return render_template("book.html", book=book, reviews=reviews)
 
+@app.route("/review/<int:book_id>", methods=["GET", "POST"])
 def review(book_id):
-    # Add reviewv
+
     rating = request.form.get("rating")
     title = request.form.get("title")
     body = request.form.get("body")
-    book.add_review(rating, title, body)
-    return render_template("book.html", book=book, reviews=reviews)
+
+    db.execute("INSERT INTO reviews (rating, title, body, book_id) VALUES (:rating, :title, :body, :book_id)",
+               {"body": body, "book_id": book_id, "rating": rating, "title": title})
+    db.commit()    # Add reviewv
+    return render_template("success.html")
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)

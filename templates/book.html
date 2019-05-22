@@ -16,8 +16,8 @@
 
     <div class="form-group">
     <h1>Submit a review for {{ book.title }}</h1>
-    <form action="/review" method="POST">
-        <input class="form-control" type="number" min="1" max= "5" name="rating" placeholder="rating">
+    <form action="/review/{{ book.id }}" method="POST">
+        <input class="form-control" type="number" name="rating" min="1" max="5" placeholder="rating">
         <input class="form-control" type="text" name="title" placeholder="title">
         <input class="form-control" type="text" name="body" placeholder="body">
         <button type="submit" class="btn btn-primary mb-2">Submit review</button>

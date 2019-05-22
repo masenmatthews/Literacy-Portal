@@ -20,7 +20,7 @@ class Book(db.Model):
     reviews = db.relationship("Review", backref="book", lazy=True)
 
     def add_review(self, title, rating, body):
-        r = Review(title=title, rating=rating, body=body, book_id=self.id)
+        r = Review(book_id=self.id, title=title, rating=rating, body=body)
         db.session.add(r)
         db.session.commit()
 
