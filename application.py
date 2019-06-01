@@ -85,9 +85,13 @@ def book(book_id):
 @app.route("/review/<int:book_id>", methods=["GET", "POST"])
 def review(book_id):
 
+    # get user id
+
     rating = request.form.get("rating")
     title = request.form.get("title")
     body = request.form.get("body")
+    
+    # pass in user id
 
     db.execute("INSERT INTO reviews (rating, title, body, book_id) VALUES (:rating, :title, :body, :book_id)",
                {"body": body, "book_id": book_id, "rating": rating, "title": title})

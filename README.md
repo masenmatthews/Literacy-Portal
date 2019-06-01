@@ -1,6 +1,6 @@
-# Project 1
+# Bookstone
 
-Web Programming with Python and JavaScript
+A one stop shop for all of your online literary needs!
 
 ## Setup steps
 

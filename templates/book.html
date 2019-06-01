@@ -26,13 +26,11 @@
     <div class="reviews">
         <ul>
             {% for review in reviews %}
-                <li> 
-                    {{ review.title }}
-                    {{ review.rating }}
-                    {{ review.body }}
-                </li>
+                <p>Rating: {{ review.rating }}</p>
+                <p>Title: {{ review.title }}</p>
+                <p>Review: {{ review.body }}</p>
             {% else %}
-                <li>No reviews yet!</li>
+                <p>No reviews yet!</p>
             {% endfor %}
         </ul>
     </div>
