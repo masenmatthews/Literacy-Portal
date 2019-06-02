@@ -1,8 +1,19 @@
 .form-group {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    display: block;
+  display: block;
+  align-items: center;
+  text-align: center;
+}
+
+.form-submit {
+  display: block;
+  justify-content: center;
+  margin: 0 auto;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 35px;
+  text-decoration: none;
+  font-size: 16px;
 }
 
 input[type=text] {
@@ -12,17 +23,14 @@ input[type=text] {
   box-sizing: border-box;
 }
 
-button[type=submit] {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: block;
-  font-size: 16px;
-}
-
 .header {
     text-align: center;
+}
+
+.login-status {
+  color: red;
+}
+
+p {
+  color: red;
 }

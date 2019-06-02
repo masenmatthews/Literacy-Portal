@@ -2,12 +2,13 @@
 {% extends "layout.html" %}
 
 {% block title %}  
-    Bookstone
+    Literary Portal
 {% endblock %}
 
 {% block body %}
-    <h1>Bookstone</h1>
-    <a href="/logout">Logout</a>
+    <div class="login-status">
+        <p>You're logged in! Click <a href="/logout">here</a> to log out!</p>
+    </div>
 
     <div class="form-group">
         <div class="md-form mt-0">

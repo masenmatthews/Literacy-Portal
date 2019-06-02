@@ -1,4 +1,4 @@
-# Bookstone
+# Literacy Portal
 
 A one stop shop for all of your online literary needs!
 
