@@ -16,6 +16,26 @@
   font-size: 16px;
 }
 
+.search-result {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  list-style-position: inside;
+}
+
+.reviews {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.book-information {
+  display: block;
+  margin: 15px auto;
+  text-align: center;
+  list-style-position: inside;
+}
+
 input[type=text] {
   width: 50%;
   padding: 12px 20px;
@@ -23,14 +43,36 @@ input[type=text] {
   box-sizing: border-box;
 }
 
+input[type=number] {
+  width: 25%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+#num-input-adjacent {
+  width: 25%
+}
+
 .header {
     text-align: center;
 }
 
 .login-status {
+  text-align: center;
+}
+
+.book-information {
   color: red;
+  font-size: 16px;
+}
+
+h1 {
+  font: Arial;
+  padding-bottom: 5px;
 }
 
 p {
-  color: red;
+  margin-top: -2px;
+  margin-bottom: -2px;
 }

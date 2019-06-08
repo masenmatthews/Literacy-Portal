@@ -5,22 +5,21 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ book.title }}</h1>
-
-    <ol>
-        <li>Title: {{ book.title }}</li>
-        <li>Author: {{ book.author }}</li>
-        <li>Year: {{ book.year }}</li>
-        <li>ISBN: {{ book.isbn }}</li>
-    </ol>
+    <div class="book-information">
+        <h1>{{ book.title }}</h1>
+        <p>Title: {{ book.title }}</p>
+        <p>Author: {{ book.author }}</p>
+        <p>Year: {{ book.year }}</p>
+        <p>ISBN: {{ book.isbn }}</p>
+    </div>
 
     <div class="form-group">
     <h1>Submit a review for {{ book.title }}</h1>
     <form action="/review/{{ book.id }}" method="POST">
-        <input class="form-control" type="number" name="rating" min="1" max="5" placeholder="rating">
-        <input class="form-control" type="text" name="title" placeholder="title">
-        <input class="form-control" type="text" name="body" placeholder="body">
-        <button type="submit" class="btn btn-primary mb-2">Submit review</button>
+        <input class="form-control" type="number" name="rating" min="1" max="5" placeholder="Rating">
+        <input class="form-control" id="num-input-adjacent" type="text" name="title" placeholder="Review title">
+        <input class="form-control" type="text" name="body" placeholder="Review body">
+        <button type="submit" class="form-submit">Submit review</button>
     </form>
 
     <div class="reviews">
