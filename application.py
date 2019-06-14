@@ -1,4 +1,5 @@
 import os
+import requests
 from flask import Flask, flash, redirect, session, request, render_template, abort, url_for
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
@@ -105,6 +106,18 @@ def review(book_id):
                {"body": body, "book_id": book_id, "rating": rating, "title": title})
     db.commit()    # Add reviewv
     return render_template("success.html")
+
+
+@app.route("/api/<isbn>", methods=["GET", "POST"])
+def book_api(isbn):
+    isbn = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
+    if isbn is None:
+        return render_template("error.html", message="No such book.")
+
+    res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "YvzsUe5aIiq75U6rQsp6A", "isbns": isbn})
+    # res.raise_for_status()
+    print(res.json())
+    return render_template("response.html")
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
