@@ -1,6 +1,6 @@
 import os
 import requests
-from flask import Flask, flash, redirect, session, request, render_template, abort, url_for
+from flask import Flask, flash, redirect, session, request, render_template, abort, url_for, jsonify, json
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
@@ -110,14 +110,25 @@ def review(book_id):
 
 @app.route("/api/<isbn>", methods=["GET", "POST"])
 def book_api(isbn):
-    isbn = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
-    if isbn is None:
+    # tricky part is figuring out how to pull book AND isbn here. In other words, how do I get book.title and book.isbn while pulling just the isbn to feed into the get request.
+    book = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
+    if book is None:
         return render_template("error.html", message="No such book.")
 
-    res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "YvzsUe5aIiq75U6rQsp6A", "isbns": isbn})
-    # res.raise_for_status()
-    print(res.json())
-    return render_template("response.html")
+    res = requests.get("https://www.goodreads.com/book/review_counts.json", 
+        params={"key": "YvzsUe5aIiq75U6rQsp6A", "isbns": book.isbn}).json()
+    res = res["books"][0]
+    reviews_count = res["reviews_count"]
+    average_rating = res["average_rating"]
+    data = {
+        "title": book.title,
+        "author": book.author,
+        "year": book.year,
+        "isbn": book.isbn,
+        "reviews_count": reviews_count,
+        "average_rating": average_rating
+    }
+    return json.dumps(data)
 
 if __name__ == "__main__":
     app.secret_key = os.urandom(12)
