@@ -93,8 +93,21 @@ def book(book_id):
     if book is None:
         return render_template("error.html", message="No such book.")
   
+    # Pull reviews frmo database
     reviews = db.execute("SELECT * FROM reviews WHERE book_id = :book_id", {"book_id": book_id}).fetchall()
-    return render_template("book.html", book=book, reviews=reviews)
+
+    # Pull Goodreads data
+    res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "YvzsUe5aIiq75U6rQsp6A", "isbns": book.isbn}).json()
+    res = res["books"][0]
+    reviews_count = res["reviews_count"]
+    average_rating = res["average_rating"]
+    # API is pulling appropriate data, just have to find out how to return it without adding another return statement
+    print_data = json.dumps({
+        "reviews_count": reviews_count,
+        "average_rating": average_rating,
+    })
+
+    return render_template("book.html", book=book, reviews=reviews, reviews_count=reviews_count, average_rating=average_rating)
 
 @app.route("/review/<int:book_id>", methods=["GET", "POST"])
 def review(book_id):
@@ -106,7 +119,6 @@ def review(book_id):
                {"body": body, "book_id": book_id, "rating": rating, "title": title})
     db.commit()    # Add reviewv
     return render_template("success.html")
-
 
 @app.route("/api/<isbn>", methods=["GET", "POST"])
 def book_api(isbn):
