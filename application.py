@@ -5,6 +5,7 @@ from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+from flask_login import current_user, login_manager
 from create import *
 
 app = Flask(__name__)
@@ -68,15 +69,19 @@ def login():
     Session = sessionmaker(bind=engine)
     s = Session()
     query = s.query(User).filter(User.username.in_([POST_USERNAME]), User.password.in_([POST_PASSWORD]))
-    result = query.first()
-    if result:
+    user = query.first()
+    if user:
         session['logged_in'] = True
+        session['user_id'] = user.id
+        session['username'] = user.username
     else:
         flash('wrong password!')
     return index()
 
 @app.route("/logout")
 def logout():
+    session['user_id'] = None
+    sessionp['username'] = None
     session['logged_in'] = False
     return index()
 
@@ -114,15 +119,17 @@ def review(book_id):
     rating = request.form.get("rating")
     title = request.form.get("title")
     body = request.form.get("body")
-    
-    db.execute("INSERT INTO reviews (rating, title, body, book_id) VALUES (:rating, :title, :body, :book_id)",
-               {"body": body, "book_id": book_id, "rating": rating, "title": title})
+    user_id = session['user_id']
+
+    # need to pull user_id from the currently logged-in user
+
+    db.execute("INSERT INTO reviews (rating, title, body, book_id, user_id) VALUES (:rating, :title, :body, :book_id, :user_id)",
+               {"body": body, "book_id": book_id, "rating": rating, "title": title, "user_id": user_id})
     db.commit()    # Add reviewv
     return render_template("success.html")
 
 @app.route("/api/<isbn>", methods=["GET", "POST"])
 def book_api(isbn):
-    # tricky part is figuring out how to pull book AND isbn here. In other words, how do I get book.title and book.isbn while pulling just the isbn to feed into the get request.
     book = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
     if book is None:
         return render_template("error.html", message="No such book.")
