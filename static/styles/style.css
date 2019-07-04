@@ -1,7 +1,12 @@
+body {
+  
+}
+
 .form-group {
-  display: block;
+  justify-content: center;
   align-items: center;
   text-align: center;
+  font-family: 'Exo', sans-serif;
 }
 
 .form-submit {
@@ -17,10 +22,8 @@
 }
 
 .search-result {
-  display: block;
-  margin: 0 auto;
+  padding: 15px 35px;
   text-align: center;
-  list-style-position: inside;
 }
 
 .reviews {
@@ -34,9 +37,12 @@
   margin: 15px auto;
   text-align: center;
   list-style-position: inside;
+  font-size: 16px;
+  font-family: 'Exo',
+  sans-serif;
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
   width: 50%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -62,17 +68,19 @@ input[type=number] {
   text-align: center;
 }
 
-.book-information {
-  color: red;
-  font-size: 16px;
+.navbar {
+  text-align: center;
 }
 
-h1 {
-  font: Arial;
+h2 {
   padding-bottom: 5px;
+  font-family: 'Exo',
+  sans-serif;
 }
 
 p {
   margin-top: -2px;
   margin-bottom: -2px;
+  font-family: 'Exo',
+  sans-serif;
 }

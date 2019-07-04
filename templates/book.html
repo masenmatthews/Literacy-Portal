@@ -5,41 +5,42 @@
 {% endblock %}
 
 {% block body %}
+    <div class="navbar">
+        <a href="{{ url_for('index') }}"> Home</a>
+    </div>
+
     <div class="book-information">
         <h1>{{ book.title }}</h1>
         <p>Title: {{ book.title }}</p>
         <p>Author: {{ book.author }}</p>
         <p>Year: {{ book.year }}</p>
         <p>ISBN: {{ book.isbn }}</p>
+        <p>Number of reviews on Goodreads: {{ reviews_count }}</p>
+        <p>Average rating on Goodreads: {{ average_rating }}</p>
     </div>
 
     <div class="form-group">
-    <h1>Submit a review for {{ book.title }}</h1>
-    <form action="/review/{{ book.id }}" method="POST">
-        <input class="form-control" type="number" name="rating" min="1" max="5" placeholder="Rating">
-        <input class="form-control" id="num-input-adjacent" type="text" name="title" placeholder="Review title">
-        <input class="form-control" type="text" name="body" placeholder="Review body">
-        <button type="submit" class="form-submit">Submit review</button>
+        <h2>Submit a review for {{ book.title }}</h2>
+        <form action="/review/{{ book.id }}" method="POST">
+            <input class="form-control" type="number" name="rating" min="1" max="5" placeholder="Rating">
+            <input class="form-control" id="num-input-adjacent" type="text" name="title" placeholder="Review title">
+            <input class="form-control" type="text" name="body" placeholder="Review body">
+            <button type="submit" class="form-submit">Submit review</button>
     </form>
 
     <div class="reviews">
-        <ul>
+        <p>
             {% for review in reviews %}
+                <h3>User Reviews</h3>
                 <p>Rating: {{ review.rating }}</p>
                 <p>Title: {{ review.title }}</p>
                 <p>Review: {{ review.body }}</p>
 
             {% else %}
-                <p>No reviews yet!</p>
+                <h4>No reviews yet!</h4>p>
             {% endfor %}
-        </ul>
+        </p>
     </div>
-
-    <div class="goodreads-data">
-        <ul>
-            <p>Number of reviews: {{ reviews_count }}</p>
-            <p>Average rating: {{ average_rating }}</p>
-        </ul>
-    </div>
+</div>
 
 {% endblock %}

@@ -81,7 +81,7 @@ def login():
 @app.route("/logout")
 def logout():
     session['user_id'] = None
-    sessionp['username'] = None
+    session['username'] = None
     session['logged_in'] = False
     return index()
 
