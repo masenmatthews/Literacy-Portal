@@ -28,12 +28,12 @@ class User(db.Model):
     username = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
 
-
 class Review(db.Model):
     __tablename__ = "reviews"
 
     id = db.Column(db.Integer, primary_key=True)
     book_id = db.Column(db.Integer, db.ForeignKey("books.id"), nullable=False)
+    username = db.Column(db.Integer, db.ForeignKey("users.username"), nullable=False)
     title = db.Column(db.String, nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     body = db.Column(db.String, nullable=False)

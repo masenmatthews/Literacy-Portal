@@ -1,6 +1,6 @@
-body {
-  
-}
+/* body {
+background-image: url('/static/img/mid-res-books.jpg')
+} */
 
 .form-group {
   justify-content: center;
@@ -24,6 +24,12 @@ body {
 .search-result {
   padding: 15px 35px;
   text-align: center;
+}
+
+.search-result a:hover {
+  color: blue;
+  text-decoration: bold;
+
 }
 
 .reviews {

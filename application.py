@@ -48,18 +48,16 @@ def signup():
     # Get signup information.
     username = request.form.get("username")
     password = request.form.get("password") 
-    db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
-            {"username": username, "password": password})
-    db.commit()
-    return render_template("success.html")
 
     # Makes sure that user doesn't already exist
-    # if db.execute("SELECT * FROM users WHERE username=username"):
-    #     return render_template ("error.html")
-
-    # if db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).rowcount == 0:
-    #     return render_template("error.html")
-    # else:
+    if db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).rowcount != 0:
+        return render_template("error.html")
+    else:
+    # Add user
+        db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
+                {"username": username, "password": password})
+        db.commit()
+        return render_template("success.html")
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -106,7 +104,6 @@ def book(book_id):
     res = res["books"][0]
     reviews_count = res["reviews_count"]
     average_rating = res["average_rating"]
-    # API is pulling appropriate data, just have to find out how to return it without adding another return statement
     print_data = json.dumps({
         "reviews_count": reviews_count,
         "average_rating": average_rating,
@@ -120,11 +117,8 @@ def review(book_id):
     title = request.form.get("title")
     body = request.form.get("body")
     user_id = session['user_id']
-
-    # need to pull user_id from the currently logged-in user
-
     db.execute("INSERT INTO reviews (rating, title, body, book_id, user_id) VALUES (:rating, :title, :body, :book_id, :user_id)",
-               {"body": body, "book_id": book_id, "rating": rating, "title": title, "user_id": user_id})
+               {"body": body, "book_id": book_id, "rating": rating, "title": title, "user_id": user_id})    
     db.commit()    # Add reviewv
     return render_template("success.html")
 
