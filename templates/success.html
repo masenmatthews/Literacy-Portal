@@ -5,8 +5,10 @@ Success
 {% endblock %}
 
 {% block body %}
-<h1>Success! {{ message }}</h1>
+    <div class="login-status">
+        <h1>Success! {{ message }}</h1>
 
-<a href="{{ url_for('index') }}">Home</a>
-<a href="/logout">Logout</a>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="/logout">Logout</a>
+    </div>
 {% endblock %}
