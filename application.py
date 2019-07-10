@@ -58,7 +58,7 @@ def signup():
         db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
                 {"username": username, "password": password})
         db.commit()
-        return render_template("success.html")
+        return render_template("success.html", message="User successfully created!")
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -121,13 +121,13 @@ def review(book_id):
     username = session['username']
 
     # Prevent user from adding multiple reviews
-    if db.execute("SELECT * FROM reviews WHERE user_id = :user_id", {"user_id": user_id}).rowcount != 0:
+    if db.execute("SELECT * FROM reviews WHERE user_id = :user_id AND book_id = :book_id", {"user_id": user_id, "book_id": book_id}).rowcount != 0:
         return render_template("error.html", message="User can only add one review")
     else:
         db.execute("INSERT INTO reviews (rating, title, body, book_id, user_id, username) VALUES (:rating, :title, :body, :book_id, :user_id, :username)",
                 {"body": body, "book_id": book_id, "rating": rating, "title": title, "user_id": user_id, "username": username})    
         db.commit()    # Add reviewv
-        return render_template("success.html")
+        return render_template("success.html", message="Thanks for submitting your review!")
 
 @app.route("/api/<isbn>", methods=["GET", "POST"])
 def book_api(isbn):

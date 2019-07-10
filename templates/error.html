@@ -5,12 +5,9 @@
 {% endblock %}
 
 {% block body %}
-    <p>Error</p>
-    
-    <div class="error message">
-        {{ message }}
+    <div class="login-status">
+        <p>Error - {{ message }}</p>
+        <a href="{{ url_for('index') }}">Home</a>
     </div>
-
-    <a href="{{ url_for('index') }}">Home</a>
 
 {% endblock %}
