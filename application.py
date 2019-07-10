@@ -51,8 +51,9 @@ def signup():
 
     # Makes sure that user doesn't already exist
     if db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).rowcount != 0:
-        return render_template("error.html")
+        return render_template("error.html", message="User already exists!")
     else:
+
     # Add user
         db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
                 {"username": username, "password": password})
@@ -94,7 +95,7 @@ def book(book_id):
     # Make sure book exists.
     book = db.execute("SELECT * FROM books WHERE id = :id", {"id": book_id}).fetchone()
     if book is None:
-        return render_template("error.html", message="No such book.")
+        return render_template("error.html", message="Book not found in our database")
   
     # Pull reviews frmo database
     reviews = db.execute("SELECT * FROM reviews WHERE book_id = :book_id", {"book_id": book_id}).fetchall()
@@ -117,16 +118,22 @@ def review(book_id):
     title = request.form.get("title")
     body = request.form.get("body")
     user_id = session['user_id']
-    db.execute("INSERT INTO reviews (rating, title, body, book_id, user_id) VALUES (:rating, :title, :body, :book_id, :user_id)",
-               {"body": body, "book_id": book_id, "rating": rating, "title": title, "user_id": user_id})    
-    db.commit()    # Add reviewv
-    return render_template("success.html")
+    username = session['username']
+
+    # Prevent user from adding multiple reviews
+    if db.execute("SELECT * FROM reviews WHERE user_id = :user_id", {"user_id": user_id}).rowcount != 0:
+        return render_template("error.html", message="User can only add one review")
+    else:
+        db.execute("INSERT INTO reviews (rating, title, body, book_id, user_id, username) VALUES (:rating, :title, :body, :book_id, :user_id, :username)",
+                {"body": body, "book_id": book_id, "rating": rating, "title": title, "user_id": user_id, "username": username})    
+        db.commit()    # Add reviewv
+        return render_template("success.html")
 
 @app.route("/api/<isbn>", methods=["GET", "POST"])
 def book_api(isbn):
     book = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn": isbn}).fetchone()
     if book is None:
-        return render_template("error.html", message="No such book.")
+        return render_template("error.html", message="Book not found in our database!")
 
     res = requests.get("https://www.goodreads.com/book/review_counts.json", 
         params={"key": "YvzsUe5aIiq75U6rQsp6A", "isbns": book.isbn}).json()

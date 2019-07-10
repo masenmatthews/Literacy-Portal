@@ -6,4 +6,11 @@
 
 {% block body %}
     <p>Error</p>
+    
+    <div class="error message">
+        {{ message }}
+    </div>
+
+    <a href="{{ url_for('index') }}">Home</a>
+
 {% endblock %}

@@ -29,7 +29,6 @@ background-image: url('/static/img/mid-res-books.jpg')
 .search-result a:hover {
   color: blue;
   text-decoration: bold;
-
 }
 
 .reviews {
@@ -46,6 +45,10 @@ background-image: url('/static/img/mid-res-books.jpg')
   font-size: 16px;
   font-family: 'Exo',
   sans-serif;
+}
+
+.user-review {
+  padding: 12px 20px;
 }
 
 input[type=text], input[type=password] {
