@@ -3,3 +3,4 @@ Flask-Session
 flask_sqlalchemy
 psycopg2
 SQLAlchemy
+flask_frozen
