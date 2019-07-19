@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>
+    Log In
+</title>
+        <link rel="stylesheet" type="text/css" href="/static/styles/style.css?q=1563421769")>
+        <link href="https://fonts.googleapis.com/css?family=Exo&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1 id="main-logo">Literary Portal</h1>
+            </div>
+            
+
+    <div class="login-index-body">
+        <div class="forms">
+            <div class="login-box">
+                <div class="form-group">
+                    <h2>Log in</h2>
+                    <form action="/login" method="POST">
+                        <input type="text" aria-label="username" name="username" placeholder="Username">
+                        <input type="password" aria-label="password" name="password" placeholder="Password">
+                        <button 
+                        display="block" class="form-submit" type="submit">Log in</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    <div class="sign-up-box">
+        <div class="form-group">
+            <h2>Need an account? Sign up</h2>
+            <form action="/signup" method="POST">
+                <input type="text" aria-label="username" name="username" placeholder="Username">
+                <input type="password" aria-label="password" name="password" placeholder="Password">
+                <button class="form-submit" type="submit">Sign up</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+        </div>
+    </body>
+</html>

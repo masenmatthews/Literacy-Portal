@@ -1,0 +1,194 @@
+/* body {
+background-image: url('/static/img/navy.jpg')
+} */
+
+p {
+  color: #022B3A;
+}
+
+#main-logo {
+  color: #022B3A;
+}
+
+.form-group {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Exo', sans-serif;
+}
+
+.form-submit {
+  display: block;
+  justify-content: center;
+  margin: 0 auto;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 35px;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.search-result {  
+  padding: 15px 35px;
+  text-align: center;
+}
+
+.search-result a:hover {
+  color: white;
+  text-decoration: bold;
+  font-size: 1.25em;
+}
+
+.individual-search-results {
+  padding: 5px 0px 5px 0px;
+  
+}
+
+.submit-review-form {
+    color: #022B3A;
+  /* background-color:  */
+}
+
+a {
+  color: #022B3A;
+  text-decoration: none;
+}
+
+.forms {
+  background-image: url('../img/mid-res-books.jpg');
+  position: relative;
+  float: right;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+.login-box {
+  float: right;
+  position: sticky;
+  padding: 5px 0px 5px 0px;
+  height: 100%;
+  width: 20%;
+  margin: 0 auto;
+  font-family: 'Exo', sans-serif;
+  background-color: #ffffff;
+  border-bottom: 2px #022B3A solid;
+  border-left: 2px #022B3A solid;
+
+}
+
+.sign-up-box {
+  color: #022B3A;
+  background-color: #E1E5F2;
+  margin: 10px 0px 0px 0px;
+  width: 100%;
+  padding: 40px 0px 10px 0px;
+  border-top: 1px #022B3A solid;
+  border-bottom: 1px #022B3A solid;
+}
+
+body {
+  background-color: #BFDBF7;
+}
+
+.index-nav {
+  background-color: #e1e5f2;
+  padding: 20px 0px 20px 0px;
+  border-bottom: 1px #022B3A solid;
+}
+
+.book-nav {
+  text-align: center;
+  font-size: 1.25em;
+}
+
+.book-nav a:hover {
+  color: white;
+}
+
+.book-information {
+  background-color: #E1E5F2;
+  padding: 5px 0px 30px 0px;
+  color: #022B3A;
+}
+
+.reviews {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  color: #022B3A;
+}
+
+.book-information {
+  display: block;
+  margin: 15px auto;
+  text-align: center;
+  list-style-position: inside;
+  font-size: 16px;
+  font-family: 'Exo',
+  sans-serif;
+}
+
+.book-search-submit-box {
+    background-color: #E1E5F2;
+}
+
+.user-review {
+  font-family: 'Exo', sans-serif;
+}
+
+input[type=text], input[type=password] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[type=number] {
+  width: 25%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+#num-input-adjacent {
+  width: 25%
+}
+
+.header {
+    text-align: center;
+}
+
+.login-index-body {
+  border-top: 1px #022B3A solid;
+
+}
+
+.login-status {
+  color: #022B3A;
+  text-align: center;
+  font-size: 1.25em;
+}
+
+.login-status a:hover {
+  color: white;
+  text-decoration: bold;
+}
+
+.navbar {
+  text-align: center;
+}
+
+
+h2 {
+  padding-bottom: 5px;
+  font-family: 'Exo',
+  sans-serif;
+}
+
+p {
+  margin-top: -2px;
+  margin-bottom: -2px;
+  font-family: 'Exo',
+  sans-serif;
+}

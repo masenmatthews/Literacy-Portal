@@ -35,4 +35,8 @@ This application utilizes the following technologies:
 
     python import.py
 
+    // 
+    python freeze.py
+
+
 4. Run flask run
